@@ -1,0 +1,12 @@
+.padding {
+  padding: 5em;
+}
+.link-padding{
+  padding: 1em;
+}
+
+.errorMessage {
+  color: red;
+  font-style: italic;
+  font-size: 0.875em;
+}

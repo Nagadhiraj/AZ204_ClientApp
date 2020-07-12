@@ -1,0 +1,88 @@
+<div class="container padding">
+    <div class="row">
+        <div class="col-md-12 border rounded text-center imageService">
+            <H2>Articles</H2>
+        </div>
+
+    </div>
+</div>
+
+<div class="container padding">
+    <div class="row">
+        <div class="col-md-3 border rounded">
+
+            <div class="padding"> Filter Articles </div>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="padding"> Checkbox </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+          Default checkbox
+        </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                <label class="form-check-label" for="defaultCheck2">
+          Disabled checkbox
+        </label>
+            </div>
+
+            <div class="padding"> Radio Button </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                <label class="form-check-label" for="exampleRadios1">
+          Default radio
+        </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+          Second default radio
+        </label>
+            </div>
+            <div class="form-check disabled">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+          Disabled radio
+        </label>
+            </div>
+
+
+        </div>
+        <div class="col-md-9 border rounded">
+            <div class="container">
+                <div class="row">
+
+                    <div *ngFor="let article of articles" class="card col-md-4 text-center">
+                        <div class="image"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{article.articleName}}</h5>
+                            <p class="card-text">{{article.shortIntro}}</p>
+                            <a routerLink="/home/articles/view/{{article.articleId}}" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center padding">
+                        <li class="page-item">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+            </div>
+        </div>
+    </div>
+</div>

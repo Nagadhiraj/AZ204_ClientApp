@@ -1,0 +1,46 @@
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputUsername4">Username</label>
+      <input type="text" id="inputUsername4" class="form-control" placeholder="Username" autocomplete="off" [formControl]="userName" required>
+      <label class="errorMessage" *ngIf="userName.invalid">{{userNameErrorMessage}}</label>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" id="inputEmail4" placeholder="Email" [formControl]="email" required>
+      <label class="errorMessage" *ngIf="email.invalid">{{emailErrorMessage}}</label>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" id="inputPassword4" placeholder="Password" autocomplete="off" [formControl]="password" required>
+      <label class="errorMessage" *ngIf="password.invalid">{{passwordErrorMessage}}</label>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputConfirmPassword4">Confirm Password</label>
+      <input type="password" class="form-control" id="inputConfirmPassword4" placeholder="Confirm Password" autocomplete="off" [formControl]="confirmPassword" required>
+      <label class="errorMessage" *ngIf="confirmPassword.invalid">{{confirmPasswordErrorMessage}}</label>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputDateOfBirth4">Date Of Birth</label>
+      <ejs-datepicker id='datepicker' placeholder='Date Of Birth' [formControl]="dob" required></ejs-datepicker>
+      <label class="errorMessage" *ngIf="dob.invalid">{{dobErrorMessage}}</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputContact">Contact</label>
+    <input type="text" class="form-control" id="inputContact" placeholder="Your Contact (Example: 9888899998)" [formControl]="contact" required>
+    <label class="errorMessage" *ngIf="contact.invalid">{{contactErrorMessage}}</label>
+  </div>
+
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Accept Terms and Conditions.
+      </label>
+    </div>
+  </div>
+  <div><label class="errorMessage">{{ErrorMessage}}</label></div>
+  
+  <button type="submit" class="btn btn-primary" (click)="OnSave()">Register</button>
+</form>

@@ -1,0 +1,10 @@
+
+
+<div class="list-group" *ngFor=" let service of services">
+  <a routerLink="/admin/manageServices/edit/{{service.serviceId}}/editService" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h4 class="mb-1">{{service.serviceName}}</h4>
+    </div>
+    <small>Author {{service.userId}}</small>
+  </a>
+</div>

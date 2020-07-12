@@ -1,0 +1,20 @@
+
+<form>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Article Name</label>
+    <input [(ngModel)]="article.articleName" type="text" class="form-control" id="formGroupExampleInput" placeholder="Article Name" [formControl]="articleName" required>
+    <label class="errorMessage" *ngIf="articleName.invalid">{{articleNameErrorMessage}}</label>
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Article Short Introduction</label>
+    <textarea [(ngModel)]="article.shortIntro" class="form-control" id="formGroupExampleInput2" aria-label="With textarea" placeholder="Article Short Introduction" [formControl]="shortInfo" required></textarea>
+    <label class="errorMessage" *ngIf="shortInfo.invalid">{{shortInfoErrorMessage}}</label>
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput3">Article Content</label>
+    <textarea [(ngModel)]="article.content" class="form-control" id="formGroupExampleInput3" aria-label="With textarea" placeholder="Article Content" [formControl]="content" required></textarea>
+    <label class="errorMessage" *ngIf="content.invalid">{{contentErrorMessage}}</label>
+  </div>
+  <div><label class="errorMessage">{{ErrorMessage}}</label></div>
+  <button type="submit" class="btn btn-primary" (click)="OnUpdateArticle()">Update Article</button>
+</form>

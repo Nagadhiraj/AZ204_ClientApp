@@ -1,0 +1,16 @@
+.padding {
+    padding: 1em;
+}
+
+.imageService {
+    line-height: 10em;
+    height: 10em;
+    width: 100%;
+    background-color: powderblue;
+}
+
+.image {
+    height: 10em;
+    width: 100%;
+    background-color: powderblue;
+}

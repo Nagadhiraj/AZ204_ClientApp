@@ -1,0 +1,90 @@
+<!--User Navigation Bar-->
+<div>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" routerLink="/home">
+            <div><b>Holistic Fitness </b></div>
+            <sup><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; by Mrinmoyee Sinha</i></sup>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li *ngIf="userLoggedIn && isDisabled" class="nav-item active p-2">
+                    <a class="nav-link" routerLink="/user/dashboard">Dashboard</a>
+                </li>
+                <li *ngIf="userLoggedIn && isDisabled" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/user/charts">My Charts</a>
+                </li>
+                <li *ngIf="notLoggedIn || userLoggedIn" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/home/articles">Articles</a>
+                </li>
+                <li *ngIf="notLoggedIn || userLoggedIn" class="dropdown nav-item p-2">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Services</a>
+                    <ul class="dropdown-menu dropdown-left-manual" style="width: 50em;">
+                        <li>
+                            <ul class="row">
+                                <li *ngFor="let service of services" class="col-md-4 list-unstyled"><a class="nav-link active font-weight-bold" routerLink="home/services/view/{{service.serviceId}}">{{service.serviceName}}</a></li>
+                                <li class="col-md-4 list-unstyled"><a class="nav-link active " routerLink="home/services">View All Services</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li *ngIf="notLoggedIn || userLoggedIn && isDisabled" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/home/about">About Us</a>
+                </li>
+                <li *ngIf="notLoggedIn" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/auth/login">Login</a>
+                </li>
+                <li *ngIf="notLoggedIn && isDisabled" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/auth/register">SignUp</a>
+                </li>
+
+                <li *ngIf="adminLoggedIn" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/admin/dashboard">My Dashboard<span class="sr-only"></span></a>
+                </li>
+                <li *ngIf="adminLoggedIn" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/admin/manageUsers">Users</a>
+                </li>
+                <li *ngIf="adminLoggedIn" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/admin/manageArticles">Articles / Services</a>
+                </li>
+                <li *ngIf="adminLoggedIn && isDisabled" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/admin/manageTestimonials">Testimonials</a>
+                </li>
+                <li *ngIf="adminLoggedIn && isDisabled" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/admin/manageMessages">Messages</a>
+                </li>
+                <li *ngIf="userLoggedIn && isDisabled" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/user/profile">My Profile</a>
+                </li>
+                <li *ngIf="userLoggedIn || adminLoggedIn" class="nav-item p-2">
+                    <a class="nav-link" routerLink="/auth/logout">Logout</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+    <div class="container bg-light border rounded">
+        <div class="collapse row" id="navbarServices">
+            <div *ngFor="let service of services" class="col-md-4 p-2">
+                <a routerLink="home/services/view/{{service.serviceId}}">{{service.serviceName}}</a>
+            </div>
+
+        </div>
+    </div>
+    <!--Navbar-->
+</div>
+<!--User Navigation Bar-->
+<!--Login Navigation Bar-->
+<div *ngIf="login">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" routerLink="/home">Dietary</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    </nav>
+</div>
+<!--Login Navigation Bar-->

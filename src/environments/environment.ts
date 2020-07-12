@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  userUrl: "https://hfstappahqpfgasla6am-userfuncapp.azurewebsites.net/api/",
-  //userUrl: "http://localhost:7071/api/",
+  //userUrl: "https://hfstappahqpfgasla6am-userfuncapp.azurewebsites.net/api/",
+  userUrl: "https://localhost:44382/",
   clientId: 'ef4c5495-06f8-4af1-9801-9a24bafc9584',
   authority: 'https://login.microsoftonline.com/3b9fe888-a28f-4637-8247-e7d730502d46/',
   redirectUri: 'http://localhost:4200/',

@@ -22,7 +22,7 @@ export class UserService {
   articleId: string;
 
   getUsers() {
-    return this.httpClient.get<Array<User>>(environment.userUrl + 'Get').pipe(
+    return this.httpClient.get<Array<User>>(environment.userUrl+ 'api/user').pipe( //+ 'Get'
       tap(
         users => {
           this.users = users;
@@ -33,7 +33,7 @@ export class UserService {
   }
 
   getUserById(id: string): Observable<User> {
-    const url = `${environment.userUrl + 'Get'}/${id}`;
+    const url = `${environment.userUrl + 'api/user'}/${id}`; //'Get'
     return this.httpClient.get<User>(url)
       .pipe(
         catchError(this.handleError)
@@ -42,7 +42,7 @@ export class UserService {
 
   saveUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<User>(environment.userUrl + 'CreateOrUpdate', user, { headers: headers })
+    return this.httpClient.post<User>(environment.userUrl + 'api/user', user, { headers: headers }) // + 'CreateOrUpdate'
       .pipe(
         catchError(this.handleError)
       );
@@ -50,7 +50,7 @@ export class UserService {
 
   updateUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = environment.userUrl + 'CreateOrUpdate';
+    const url = environment.userUrl + 'api/user'; // + 'CreateOrUpdate';
     return this.httpClient.put<User>(url, user, { headers: headers })
       .pipe(
         map(() => user),

@@ -13,8 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeLayoutComponentComponent } from './home-layout-component/home-layout-component.component';
 
-import { HeaderComponent } from '../../app/ui/header/header.component';
-import { FooterComponent } from '../../app/ui/footer/footer.component';
+import { HeaderComponent } from '../../../src/app/ui/header/header.component';
+import { FooterComponent } from '../../../src/app/ui/footer/footer.component';
 
 @NgModule({
   declarations: [

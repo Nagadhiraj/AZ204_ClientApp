@@ -25,12 +25,12 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: './user/user.module#UserModule',
-    canActivate: [MsalGuard]
+    //canActivate: [MsalGuard]
   },
   {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
-    canActivate: [MsalGuard]
+    //canActivate: [MsalGuard]
     //canActivate : [CanActivateRouteGuard]
   },
   {

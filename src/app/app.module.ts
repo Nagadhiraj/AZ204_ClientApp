@@ -16,7 +16,7 @@ import { AuthserviceService } from './services/authservice.service';
 
 import { CanActivateRouteGuard } from './can-activate-route.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
+//import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { environment } from '../environments/environment';
 
 
@@ -32,27 +32,27 @@ import { environment } from '../environments/environment';
     routing,
     HttpClientModule,
     BrowserAnimationsModule,
-    MsalModule.forRoot({
-      auth: {
-        clientId: environment.clientId, 
-        authority: environment.authority, 
-        redirectUri: environment.redirectUri,
-        postLogoutRedirectUri: environment.postLogoutRedirectUri,
-        validateAuthority: false
-      },
-      cache: {
-        cacheLocation: 'localStorage',
-        storeAuthStateInCookie: environment.isIE, // Set to true for Internet Explorer 11
-      },
-    }, {
-        popUp: !environment.isIE,
-        consentScopes: environment.consentScopes1,
-        unprotectedResources: environment.unprotectedResources,
-        protectedResourceMap: [
-          [environment.webApi1, environment.consentScopes1]
-        ],
-        extraQueryParameters: {}
-      })
+    // MsalModule.forRoot({
+    //   auth: {
+    //     clientId: environment.clientId, 
+    //     authority: environment.authority, 
+    //     redirectUri: environment.redirectUri,
+    //     postLogoutRedirectUri: environment.postLogoutRedirectUri,
+    //     validateAuthority: false
+    //   },
+    //   cache: {
+    //     cacheLocation: 'localStorage',
+    //     storeAuthStateInCookie: environment.isIE, // Set to true for Internet Explorer 11
+    //   },
+    // }, {
+    //     popUp: !environment.isIE,
+    //     consentScopes: environment.consentScopes1,
+    //     unprotectedResources: environment.unprotectedResources,
+    //     protectedResourceMap: [
+    //       [environment.webApi1, environment.consentScopes1]
+    //     ],
+    //     extraQueryParameters: {}
+    //   })
   ],
   providers: [
     ServiceService,
@@ -62,7 +62,7 @@ import { environment } from '../environments/environment';
     AuthserviceService,
     CanActivateRouteGuard,
     { provide: LOCALE_ID, useValue: "en-GB" },
-    { provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true }
+    //{ provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

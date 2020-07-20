@@ -3,7 +3,7 @@ import { ServiceService } from '../../services/Serviceservice.service';
 import { AuthserviceService } from '../../services/authservice.service';
 import { Service } from '../../models/service';
 import { Router } from '@angular/router';
-import { MsalService } from '@azure/msal-angular';
+//import { MsalService } from '@azure/msal-angular';
 import { UserService } from '../../services/Userservice.service';
 
 @Component({
@@ -27,7 +27,8 @@ export class HeaderComponent{
     private _authService: AuthserviceService,
     private _router: Router,
     private _userService: UserService,
-    private msalService: MsalService) {
+    //private msalService: MsalService
+    ) {
     
   }
 

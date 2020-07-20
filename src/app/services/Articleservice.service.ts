@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { MsalService } from '@azure/msal-angular';
+//import { MsalService } from '@azure/msal-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,8 @@ import { MsalService } from '@azure/msal-angular';
 export class ArticleService {
 
   constructor(private httpClient: HttpClient,
-    private msalService: MsalService) { }
+    //private msalService: MsalService
+    ) { }
 
   articleId: string;
   articles: Array<Article>;

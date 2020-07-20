@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
-import { MsalModule, MsalInterceptor, MsalGuard } from '@azure/msal-angular';
+//import { MsalModule, MsalInterceptor, MsalGuard } from '@azure/msal-angular';
 //import { AppComponent } from './app.component';
 
 import { CanActivateRouteGuard } from './can-activate-route.guard';

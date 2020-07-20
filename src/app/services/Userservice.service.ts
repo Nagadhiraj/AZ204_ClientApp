@@ -4,7 +4,7 @@ import { User } from '../models/user';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { MsalService } from '@azure/msal-angular';
+//import { MsalService } from '@azure/msal-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +12,10 @@ import { MsalService } from '@azure/msal-angular';
 export class UserService {
 
   constructor(private httpClient: HttpClient,
-    private msalService: MsalService) { }
+    //private msalService: MsalService
+    ) { }
 
-  loggedInUser: any = this.msalService.getAccount();
+  //loggedInUser: any = this.msalService.getAccount();
 
   users: Array<User>;
   userId: string;

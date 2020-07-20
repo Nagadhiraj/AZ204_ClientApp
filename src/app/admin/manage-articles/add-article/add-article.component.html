@@ -1,19 +1,30 @@
+<div class="mt-3"></div>
+<div>
+    <input type="checkbox" class="form-check-input" id="Check1" [(ngModel)]="isService">
+    <label class="form-check-label" for="Check1">Is this a Service ?</label>
+</div>
+<div class="mt-3"></div>
 <form>
-  <div class="form-group">
-    <label for="formGroupExampleInput">{{articleNameText}}</label>
-    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Article Name" [formControl]="articleName" required>
-    <label class="errorMessage" *ngIf="articleName.invalid">{{articleNameErrorMessage}}</label>
-  </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput2">{{articleShortIntroText}}</label>
-    <textarea class="form-control" id="formGroupExampleInput2" aria-label="With textarea" placeholder="Article Short Introduction" [formControl]="shortInfo" required></textarea>
-    <label class="errorMessage" *ngIf="shortInfo.invalid">{{shortInfoErrorMessage}}</label>
-  </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput3">{{articleContentText}} </label>
-    <textarea class="form-control" id="formGroupExampleInput3" aria-label="With textarea" placeholder="Article Content" [formControl]="content" required></textarea>
-    <label class="errorMessage" *ngIf="content.invalid">{{contentErrorMessage}}</label>
-  </div>
-  <div><label class="errorMessage">{{ErrorMessage}}</label></div>
-  <button type="submit" class="btn btn-primary" (click)="OnSaveArticle()">{{saveArticleText}}</button>
+    <div class="form-group">
+        <label *ngIf="!isService" for="formGroupExampleInput">{{articleNameText}}</label>
+        <label *ngIf="isService" for="formGroupExampleInput">Service Name</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name" [formControl]="articleName" required>
+        <label class="errorMessage" *ngIf="articleName.invalid">{{articleNameErrorMessage}}</label>
+    </div>
+    <div class="form-group">
+        <label *ngIf="!isService" for="formGroupExampleInput2">{{articleShortIntroText}}</label>
+        <label *ngIf="isService" for="formGroupExampleInput">Service Short Introduction</label>
+        <textarea class="form-control" id="formGroupExampleInput2" aria-label="With textarea" placeholder="Short Introduction" [formControl]="shortInfo" required></textarea>
+        <label class="errorMessage" *ngIf="shortInfo.invalid">{{shortInfoErrorMessage}}</label>
+    </div>
+    <div class="form-group">
+        <label *ngIf="!isService" for="formGroupExampleInput3">{{articleContentText}} </label>
+        <label *ngIf="isService" for="formGroupExampleInput">Service Content</label>
+        <!-- <textarea class="form-control" id="formGroupExampleInput3" aria-label="With textarea" placeholder="Article Content" [formControl]="content" required></textarea> -->
+        <quill-editor [styles]="editorStyle" [modules]="modules" [formControl]="content" required></quill-editor>
+        <label class="errorMessage" *ngIf="content.invalid">{{contentErrorMessage}}</label>
+    </div>
+    <div><label class="errorMessage">{{ErrorMessage}}</label></div>
+    <button type="submit" class="btn btn-primary btn-sm mr-1" (click)="OnSaveArticle()"><span class="fa fa-save"></span>&nbsp; Save</button>
+    <button type="button" class="btn btn-warning btn-sm" (click)="OnCancel()"><span class="fa fa-close"></span>&nbsp; Cancel</button>
 </form>

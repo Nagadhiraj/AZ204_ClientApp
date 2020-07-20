@@ -4,6 +4,7 @@ import { Article } from '../../../models/article';
 import { Router } from '@angular/router';
 import { ArticleService } from '../../../services/Articleservice.service';
 import { AppConstants } from '../../../Glossary';
+import 'quill-emoji/dist/quill-emoji.js'
 
 @Component({
   selector: 'app-add-article',
@@ -12,10 +13,13 @@ import { AppConstants } from '../../../Glossary';
 })
 export class AddArticleComponent implements OnInit {
 
+  modules = {};
+  editorStyle = {};
   articleNameErrorMessage: String;
   shortInfoErrorMessage: String;
   contentErrorMessage: String;
   ErrorMessage: String;
+  isService: boolean = false;
 
   articleName = new FormControl('', [Validators.required]);
   shortInfo = new FormControl('', [Validators.required]);
@@ -26,7 +30,41 @@ export class AddArticleComponent implements OnInit {
   articleContentText = AppConstants.ARTICLE_CONTENT_TEXT;
   saveArticleText = AppConstants.SAVE_ARTICLE_TEXT;
 
-  constructor(private articleservice: ArticleService, private router: Router) { }
+  constructor(private articleservice: ArticleService, private router: Router) { 
+    this.modules = {
+      'emoji-shortname': true,
+      'emoji-textarea': true,
+      'emoji-toolbar': true,
+      'toolbar': [
+
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
+
+        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        [{ 'direction': 'rtl' }],                         // text direction
+
+        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+
+        ['clean'],                                         // remove formatting button
+
+        ['link', 'image', 'video'],                         // link and image, video
+        ['emoji']
+
+      ]
+    }
+    this.editorStyle = {
+      height : '400px',
+    }
+
+  }
 
   ngOnInit() {
   }
@@ -40,8 +78,18 @@ export class AddArticleComponent implements OnInit {
     if (!(this.articleName.invalid && this.shortInfo.invalid && this.content.invalid)) {
 
 
-      const article = new Article(this.articleName.value, 1, this.shortInfo.value, this.content.value);
-
+      var article = new Article();
+      article.isService = this.isService;
+      article.name = this.articleName.value;
+      article.content = this.content.value;
+      article.shortIntro = this.shortInfo.value;
+      article.createdBy = "Mrinmoyee Sinha";
+      article.createdDate = (new Date()).toLocaleString();
+      article.modifiedBy = "Mrinmoyee Sinha";
+      article.modifiedDate = (new Date()).toLocaleString();
+      article.isActive = true;
+      article.publishBy = "Mrinmoyee Sinha";
+      article.publishDate = (new Date()).toLocaleString();
 
       this.articleservice.saveArticle(article)
           .subscribe(
@@ -56,6 +104,16 @@ export class AddArticleComponent implements OnInit {
 
     }
   }
+  OnCancel() {
+    this.router.navigate(['admin/manageArticles/view']);
+  }
 
+  checkboxclicked(){
+    if(this.isService == false){
+      this.articleNameText = AppConstants.ARTICLE_NAME_TEXT;
+      this.articleShortIntroText = AppConstants.ARTICLE_SHORTINTRO_TEXT;
+      this.articleContentText = AppConstants.ARTICLE_CONTENT_TEXT;
+    }//(click)="checkboxclicked()"
+  }
 
 }

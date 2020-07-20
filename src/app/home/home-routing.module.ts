@@ -43,7 +43,7 @@ const routes: Routes = [
             component: ArticlesComponent
           },
           {
-            path: 'view/:articleId',
+            path: 'view',
             component: HomeViewArticleComponent
           }
         ]
@@ -57,4 +57,4 @@ const routes: Routes = [
 ];
 
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+export const routing: ModuleWithProviders<RouterModule> = RouterModule.forChild(routes);

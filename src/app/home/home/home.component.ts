@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import {Appointment} from '../../models/appointment';
+//import {Appointment} from '../../models/appointment';
 import {AppointmentService} from '../../services/Appointmentservice.service';
 import {ArticleService} from '../../services/Articleservice.service';
 import {JumbotronService} from '../../services/Jumbotronservice.service';
@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
     if (!(this.appointmentDate.invalid && this.appointmentTime.invalid)) {
 
       // get userId of logged in user and pass it dynamically to appointment object
-      const appointment = new Appointment(this.appointmentDate.value, this.appointmentTime.value, 2);
+      //const appointment = new Appointment(this.appointmentDate.value, this.appointmentTime.value, 2);
 
       //this._appointmentService.saveAppointment(appointment)
       //    .subscribe(

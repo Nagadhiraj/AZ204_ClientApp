@@ -18,11 +18,14 @@ export class UserService {
 
   users: Array<User>;
   userId: string;
+  username: string;
+  email: string;
+  phone: string;
   serviceId: string;
   articleId: string;
 
   getUsers() {
-    return this.httpClient.get<Array<User>>(environment.userUrl+ 'api/user').pipe( //+ 'Get'
+    return this.httpClient.get<Array<User>>(environment.apiUrl+ 'user').pipe( //+ 'Get'
       tap(
         users => {
           this.users = users;
@@ -33,7 +36,7 @@ export class UserService {
   }
 
   getUserById(id: string): Observable<User> {
-    const url = `${environment.userUrl + 'api/user'}/${id}`; //'Get'
+    const url = `${environment.apiUrl + 'user'}/${id}`; //'Get'
     return this.httpClient.get<User>(url)
       .pipe(
         catchError(this.handleError)
@@ -42,7 +45,7 @@ export class UserService {
 
   saveUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<User>(environment.userUrl + 'api/user', user, { headers: headers }) // + 'CreateOrUpdate'
+    return this.httpClient.post<User>(environment.apiUrl + 'user', user, { headers: headers }) // + 'CreateOrUpdate'
       .pipe(
         catchError(this.handleError)
       );
@@ -50,7 +53,7 @@ export class UserService {
 
   updateUser(user: User): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = environment.userUrl + 'api/user'; // + 'CreateOrUpdate';
+    const url = environment.apiUrl + 'user'; // + 'CreateOrUpdate';
     return this.httpClient.put<User>(url, user, { headers: headers })
       .pipe(
         map(() => user),
@@ -60,7 +63,7 @@ export class UserService {
 
   deleteUser(id: string): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${environment.userUrl + 'Delete'}/${id}`;
+    const url = `${environment.apiUrl + 'Delete'}/${id}`;
     return this.httpClient.delete<User>(url, { headers: headers })
       .pipe(
         catchError(this.handleError)

@@ -15,6 +15,7 @@ import { HomeLayoutComponentComponent } from './home-layout-component/home-layou
 
 import { HeaderComponent } from '../../../src/app/ui/header/header.component';
 import { FooterComponent } from '../../../src/app/ui/footer/footer.component';
+import { QuillModule} from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,9 @@ import { FooterComponent } from '../../../src/app/ui/footer/footer.component';
     FormsModule, ReactiveFormsModule,
     DatePickerModule,
     HttpClientModule,
-    routing
+    routing,
+    QuillModule
+    //AdminModule
   ],
   entryComponents: [
     HomeViewServiceComponent,

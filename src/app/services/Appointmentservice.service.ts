@@ -1,51 +1,45 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Appointment } from '../models/appointment';
-import { TimeSlot } from '../models/timeSlot';
-import { tap } from 'rxjs/operators';
+import { AppointmentEntity, AppointmentQuery } from '../models/appointment';
+import { environment } from '../../environments/environment';
+import { tap, catchError, map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
   constructor(private httpClient: HttpClient) { }
-  appointments: Array<Appointment>;
-  timeSlots: Array<TimeSlot>;
 
-  getAppointments() {
-    //return this.httpClient.get<Array<Appointment>>('https://localhost:44305/api/appointment').pipe(
-    return this.httpClient.get<Array<Appointment>>('/api/appointment').pipe(
-      tap(
-        appointments => {
-          this.appointments = appointments;
-        }
-      )
-    );
+  appointments: Array<AppointmentEntity>;
+
+  saveOrFetchAppointment(appointment: AppointmentQuery): Observable<AppointmentEntity[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<AppointmentEntity[]>(environment.apiUrl + 'appointment', appointment, { headers: headers }) // + 'CreateOrUpdate'
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  getAvailableTimeSlots(appDate) {
-    //return this.httpClient.get<Array<TimeSlot>>(`https://localhost:44305/api/appointment/timeslot?appDate=${appDate}`).pipe(
-    return this.httpClient.get<Array<TimeSlot>>(`/api/appointment/timeslot?appDate=${appDate}`).pipe(
-      tap(
-        timeSlots => {
-          this.timeSlots = timeSlots;
-        }
-      )
-    );
+  updateAppointment(appointment: AppointmentEntity): Observable<AppointmentEntity> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = environment.apiUrl + 'appointment';
+    return this.httpClient.put<AppointmentEntity>(url, appointment, { headers: headers })
+      .pipe(
+        map(() => appointment),
+        catchError(this.handleError)
+      );
   }
 
-  saveAppointment(data) {
-    //return this.httpClient.post('https://localhost:44305/api/appointment', data);
-    return this.httpClient.post('/api/appointment', data);
+  private handleError(err) {
+    let errorMessage: string;
+    if (err.error instanceof ErrorEvent) {
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+    }
+    console.error(err);
+    return throwError(errorMessage);
   }
 
-  updateAppointment(appointment, appointmentId) {
-    //return this.httpClient.post(`https://localhost:44305/api/appointment/${appointmentId}`, appointment);
-    return this.httpClient.post(`/api/appointment/${appointmentId}`, appointment);
-  }
-
-  getAppointmentById(appointmentId): Appointment {
-    const appointment = this.appointments.find(appointment => appointment.appointmentId == appointmentId);
-    return Object.assign({}, appointment);
-  }
 }

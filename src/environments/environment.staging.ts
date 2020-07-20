@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
   environmentName: 'QA',
-  userUrl: "https://hfapp-webapp-eu.azurewebsites.net/",
-  //userUrl: "https://hfstapp-apims.azure-api.net/api/v1/",
-  clientId: 'ef4c5495-06f8-4af1-9801-9a24bafc9584',
+  apiUrl: "https://hfapp-webapp-eu.azurewebsites.net/api/",
+  //apiUrl: "localhost://",
+  clientId: 'c23660c7-74c3-4f3b-ae78-c57fc37511a5',
   authority: 'https://login.microsoftonline.com/3b9fe888-a28f-4637-8247-e7d730502d46/',
   redirectUri: 'https://hfapp-cdnendpoint.azureedge.net',
   postLogoutRedirectUri: 'https://hfapp-cdnendpoint.azureedge.net',

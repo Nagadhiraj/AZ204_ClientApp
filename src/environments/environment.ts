@@ -4,16 +4,17 @@
 
 export const environment = {
   production: false,
-  //userUrl: "https://hfstappahqpfgasla6am-userfuncapp.azurewebsites.net/api/",
-  userUrl: "https://localhost:44382/",
-  clientId: 'ef4c5495-06f8-4af1-9801-9a24bafc9584',
-  authority: 'https://login.microsoftonline.com/3b9fe888-a28f-4637-8247-e7d730502d46/',
-  redirectUri: 'http://localhost:4200/',
-  postLogoutRedirectUri: 'https://hfstapp-cdn.azureedge.net',
+  //apiUrl: "https://localhost:44382/api/",
+  apiUrl: "https://hfapp-webapp-eu.azurewebsites.net/api/",
+  clientId: 'c23660c7-74c3-4f3b-ae78-c57fc37511a5',
+  authority: 'https://hforg.b2clogin.com/hforg.onmicrosoft.com/oauth2/v2.0/authorize?0=b2c_1_signupsignin',
+  //authority: 'https://login.microsoftonline.com/2199f60f-84ef-407d-a08e-c57fc37511a5/',
+  redirectUri: 'https://hfapp-cdnendpoint.azureedge.net/admin',
+  postLogoutRedirectUri: 'https://hfapp-cdnendpoint.azureedge.net',
   isIE: window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1,
   consentScopes1: ["api://4500db5b-cf58-4b2f-98b2-d5ce8f0f4fc6/api-access"],
   unprotectedResources: [],
-  webApi1: 'https://hfstappahqpfgasla6am-userfuncapp.azurewebsites.net/api/',
+  webApi1: 'https://hfapp-webapp-eu.azurewebsites.net/',
   extraQueryParameters: {}
 };
 

@@ -12,16 +12,73 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-article.component.css']
 })
 export class EditArticleComponent implements OnInit {
+  modules = {};
+  editorStyle = {};
+  isService: boolean = false;
+
   constructor(private activatedRoute: ActivatedRoute, private articleService: ArticleService, private router: Router) {
-    const articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
-    this.article = this.articleService.getArticleById(articleId);
-    this.articleid = articleId;
+    this.modules = {
+      'emoji-shortname': true,
+      'emoji-textarea': true,
+      'emoji-toolbar': true,
+      'toolbar': [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
+
+        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        [{ 'direction': 'rtl' }],                         // text direction
+
+        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+
+        ['clean'],                                         // remove formatting button
+
+        ['link', 'image', 'video'],                         // link and image, video
+        ['emoji']
+
+      ]
+    }
+    this.editorStyle = {
+      height : '400px',
+    }
   }
+
   article: Article;
-  errMessage: String;
-  articleid: String;
+  errMessage: string;
+  articleid: string;
+  loader: boolean = false;
 
   ngOnInit() {
+    this.fetchArticleDetail();
+  }
+
+  fetchArticleDetail() {
+    var articleId = this.articleService.articleId;
+    if (articleId == undefined) {
+      this.router.navigate(['admin/manageArticles/view']);
+    }
+    this.loader = true;
+    this.articleid = articleId;
+    this.articleService.getArticleById(articleId).subscribe(
+      data => {
+        this.loader = false;
+        this.article = data;
+        this.isService = this.article.isService;
+        //this.dateOfBirth = new FormControl(this.article.publishDate, [Validators.required]);
+      },
+      err => {
+        this.loader = false;
+        //console.log(err);
+        this.errMessage = err;
+      }
+    );
   }
 
   articleNameErrorMessage: String;
@@ -42,10 +99,21 @@ export class EditArticleComponent implements OnInit {
 
     if (!(this.articleName.invalid && this.shortInfo.invalid && this.content.invalid)) {
 
+      var article = new Article();
+      article.isService = this.isService;
+      article.id = this.articleid;
+      article.name = this.articleName.value;
+      article.content = this.content.value;
+      article.shortIntro = this.shortInfo.value;
+      article.createdBy = "Mrinmoyee Sinha";
+      article.createdDate = (new Date()).toLocaleString();
+      article.modifiedBy = "Mrinmoyee Sinha";
+      article.modifiedDate = (new Date()).toLocaleString();
+      article.isActive = true;
+      article.publishBy = "Mrinmoyee Sinha";
+      article.publishDate = (new Date()).toLocaleString();
 
-      const article = new Article(this.articleName.value, 1, this.shortInfo.value, this.content.value);
-
-      this.articleService.updateArticle(article, this.articleid)
+      this.articleService.updateArticle(article)
         .subscribe(
           res => {
             this.ErrorMessage = 'Article Updated';
@@ -57,6 +125,10 @@ export class EditArticleComponent implements OnInit {
 
 
     }
+  }
+
+  OnCancel() {
+    this.router.navigate(['admin/manageArticles/view']);
   }
 
 }

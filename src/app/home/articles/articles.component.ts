@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../../models/article';
 import { ArticleService } from '../../services/Articleservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-articles',
@@ -9,19 +10,46 @@ import { ArticleService } from '../../services/Articleservice.service';
 })
 export class ArticlesComponent implements OnInit {
 
-  constructor(private articleService: ArticleService) { 
+  loader: boolean = false;
+  public searchText: string;
+  pageOfItems: Array<any>;
+
+  constructor(private articleService: ArticleService, private router: Router,) { 
+    
+  }
+
+  articles: Array<Article> = [];
+  errMessage: string;
+
+  ngOnInit() {
+    this.fetcharticles();
+  }
+
+  fetcharticles() {
+    this.articles = [];
+    this.loader = true;
     this.articleService.getArticles().subscribe(
-      data => this.articles = data,
+      data => {
+        this.loader = false;
+        this.articles = data;
+        //console.log(this.articles);
+      },
       err => {
-        this.errMessage = err.error.message;
+        //console.log(err);
+        this.errMessage = err;
+        this.loader = false;
       }
     );
   }
 
-  articles: Array<Article>;
-  errMessage: string;
+  onChangePage(pageOfItems: Array<any>) {
+    // update current page of items
+    this.pageOfItems = pageOfItems;
+  }
 
-  ngOnInit() {
+  fnviewArticle(article: Article) {
+    this.articleService.articleId = article.id;
+    this.router.navigate(['home/articles/view']);
   }
 
 }

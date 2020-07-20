@@ -8,11 +8,12 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     LoginComponent,
     RegistrationComponent,
-    LogoutComponent
+    LogoutComponent,
   ],
   imports: [
     CommonModule,

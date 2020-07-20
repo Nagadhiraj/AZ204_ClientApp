@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { environment } from '../environments/environment';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,7 @@ import { environment } from '../environments/environment';
         authority: environment.authority, 
         redirectUri: environment.redirectUri,
         postLogoutRedirectUri: environment.postLogoutRedirectUri,
-        //validateAuthority: false
+        validateAuthority: false
       },
       cache: {
         cacheLocation: 'localStorage',

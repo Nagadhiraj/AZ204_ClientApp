@@ -1,13 +1,37 @@
-export class Appointment {
+export class AppointmentEntity {
     
-    appointmentId: Number;
-    appointmentDate: Date;
-    timeSlotId: Number;
-    userId: Number;
+  id : string; 
+  date : string;
+  from : string;
+  to : string;
+  userId : string;
+  username : string;
+  phone : string;
+  email : string;
+  isActive : boolean;
+  isAvailable : boolean;
+  createdBy : string;
+  createdDate : string;
+  modifiedBy : string;
+  modifiedDate : string;
   
-    constructor(appointmentDate, timeSlotId, userId) {
-      this.appointmentDate = appointmentDate;
-      this.timeSlotId = timeSlotId;
-      this.userId = userId;
-    }
-  }
+}
+
+export class AppointmentQuery {
+    id : string;   
+    date : string;
+    from : string;
+    to : string;
+    userId : string;
+    username : string;
+    phone : string;
+    email : string;
+    isActive : boolean;
+    isAvailable : boolean;
+    createdBy : string;
+    createdDate : string;
+    modifiedBy : string;
+    modifiedDate : string;
+    queryParameter : string;
+
+}

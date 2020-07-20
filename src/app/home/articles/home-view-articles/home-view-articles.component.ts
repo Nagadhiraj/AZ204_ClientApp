@@ -10,18 +10,43 @@ import { Router } from '@angular/router';
   styleUrls: ['./home-view-articles.component.css']
 })
 export class HomeViewArticleComponent implements OnInit {
-
+  
   constructor(private activatedRoute: ActivatedRoute, private articleService: ArticleService, private router: Router) {
-    const articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
-    this.article = this.articleService.getArticleById(articleId);
-    this.articleId = articleId;
+    
   }
 
   article: Article;
-  errMessage: String;
-  articleId: String;
+  errMessage: string;
+  articleid: string;
+  loader: boolean = false;
 
   ngOnInit() {
+    this.fetchArticleDetail();
+  }
+
+  fetchArticleDetail() {
+    var articleId = this.articleService.articleId;
+    if (articleId == undefined) {
+      this.router.navigate(['home/articles']);
+    }
+    this.loader = true;
+    this.articleid = articleId;
+    this.articleService.getArticleById(articleId).subscribe(
+      data => {
+        this.loader = false;
+        this.article = data;
+        //this.dateOfBirth = new FormControl(this.article.publishDate, [Validators.required]);
+      },
+      err => {
+        this.loader = false;
+        //console.log(err);
+        this.errMessage = err;
+      }
+    );
+  }
+
+  OnCancel() {
+    this.router.navigate(['articles']);
   }
 
 }

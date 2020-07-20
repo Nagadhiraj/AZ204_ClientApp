@@ -45,13 +45,17 @@ const routes: Routes = [ // default route of the module
             component: AddArticleComponent
           },
           {
-            path: 'edit/:articleId/editArticle',
+            path: 'edit/editArticle',
             component: EditArticleComponent
           },
           {
             path: 'view',
             component: ViewArticleComponent
-          }
+          },
+          {
+            path: '**',
+            component: ViewArticleComponent
+          },
         ]
       },
       {
@@ -66,7 +70,7 @@ const routes: Routes = [ // default route of the module
             component: AddServiceComponent
           },
           {
-            path: 'edit/:serviceId/editService',
+            path: 'edit/editService',
             component: EditServiceComponent
           },
           {
@@ -122,13 +126,13 @@ const routes: Routes = [ // default route of the module
         ]
       },
       { path: 'manageMessages', component: ManageMessagesComponent },
-      {
-        path: '**',
-        redirectTo: '/admin'
-      },
+      // {
+      //   path: '**',
+      //   redirectTo: '/admin'
+      // },
     ]
   }
 ];
 
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+export const routing: ModuleWithProviders<RouterModule> = RouterModule.forChild(routes);

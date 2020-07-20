@@ -44,7 +44,11 @@ export class ViewUserComponent implements OnInit {
   }
 
   fneditUser(user: User) {
+    console.log(user)
     this.userService.userId = user.id.toString();
+    this.userService.username = user.name.toString();
+    this.userService.email = user.email.toString();
+    this.userService.phone = user.phone.toString();
     this.router.navigate(['admin/manageUsers/edit/editUser']);
   }
 

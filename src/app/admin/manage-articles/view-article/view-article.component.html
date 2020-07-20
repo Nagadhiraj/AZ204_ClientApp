@@ -1,10 +1,68 @@
-
-
-<div class="list-group" *ngFor=" let article of articles">
-  <a routerLink="/admin/manageArticles/edit/{{article.articleId}}/editArticle" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h4 class="mb-1">{{article.articleName}}</h4>
+<div class="row m-2">
+    <div class="col-12 text-center">
+        <button type="button" class="btn btn-success btn-sm mr-1" (click)="onRefresh()"><span class="fa fa-refresh"></span>&nbsp; Refresh</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="onAdd()"><span class="fa fa-plus"></span>&nbsp; Add Article / Service</button>
     </div>
-    <small>Author {{article.userId}}</small>
-  </a>
 </div>
+<!--Search section-->
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text fa fa-search" id="basic-addon1"></span>
+    </div>
+    <input type="text" class="form-control" placeholder="Search Article / Service" aria-label="Username" [(ngModel)]="searchText" aria-describedby="basic-addon1">
+</div>
+<!--Search section-->
+<!--Loader-->
+<div *ngIf="loader" class="d-flex justify-content-center">
+    <div class="spinner-border text-success" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!--Loader-->
+<!--View Section-->
+<div class="list-group" *ngFor=" let article of pageOfItems | filter : searchText">
+    <div class="list-group-item list-group-item-action flex-column align-items-start mb-1">
+        <!--<small>{{user.registrationNumber}}</small>-->
+        <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">{{article.name}}</h4>
+        </div>
+        <div class="row">
+            <span class="col-lg-4 col-md-12 col-sm-12">Published By: {{article.publishBy}}</span>
+            <span class="col-lg-4 col-md-12 col-sm-12">Published Date: {{article.publishDate}}</span>
+            <span *ngIf="article.isService" class="col-lg-4 col-md-12 col-sm-12">Category: Service</span>
+            <span *ngIf="!article.isService" class="col-lg-4 col-md-12 col-sm-12">Category: Article</span>
+        </div>
+        <div class="row">
+            <span class="col-12 text-right mt-2">
+        <button type="button" class="btn btn-warning btn-sm mr-1" data-toggle="modal" (click)="onDelete(article)" data-target="#ModalCenter" [disabled]="isDisabled"><span class="fa fa-trash"></span>&nbsp; Delete</button>
+            <button type="button" class="btn btn-primary btn-sm mr-1" (click)="fneditArticle(article)" [disabled]="isDisabled"><span class="fa fa-eye"></span>&nbsp; View</button>
+            </span>
+        </div>
+    </div>
+</div>
+<!--Pagination-->
+<div class="mt-3">
+    <jw-pagination [items]="articles" [initialPage]="1" [pageSize]="10" [maxPages]="2" (changePage)="onChangePage($event)">
+    </jw-pagination>
+</div>
+<!--Pagination-->
+<!--View Section-->
+<!--Modal-->
+<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Attention</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure, you want to delete {{deleteArticle.name}}?</h4>
+                <button type="button" class="btn btn-secondary btn-lg btn-block" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="fndeleteUser(deleteArticle)" data-dismiss="modal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal-->

@@ -26,9 +26,12 @@ import { UserChartsComponent } from './manage-users/edit-user/user-charts/user-c
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AdminLayoutComponentComponent } from './admin-layout-component/admin-layout-component.component';
+import {AuthenticationModule} from '../authentication/authentication.module';
+import { QuillModule} from 'ngx-quill';
 import { FilterPipe } from '../ui/filter/filter.pipe';
 import { JwPaginationComponent } from 'jw-angular-pagination';
-import { AdminLayoutComponentComponent } from './admin-layout-component/admin-layout-component.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,9 @@ import { AdminLayoutComponentComponent } from './admin-layout-component/admin-la
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DatePickerModule
+    DatePickerModule,
+    QuillModule,
+    AuthenticationModule
   ],
   entryComponents: [
     AddArticleComponent,

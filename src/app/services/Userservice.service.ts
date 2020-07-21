@@ -30,9 +30,9 @@ export class UserService {
       tap(
         users => {
           this.users = users;
-        },
+        }),
         catchError(this.handleError)
-      )
+      
     );
   }
 
@@ -40,6 +40,7 @@ export class UserService {
     const url = `${environment.apiUrl + 'user'}/${id}`; //'Get'
     return this.httpClient.get<User>(url)
       .pipe(
+        tap(()=> {}),
         catchError(this.handleError)
       );
   }
@@ -48,6 +49,7 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<User>(environment.apiUrl + 'user', user, { headers: headers }) // + 'CreateOrUpdate'
       .pipe(
+        tap(()=> {}),
         catchError(this.handleError)
       );
   }

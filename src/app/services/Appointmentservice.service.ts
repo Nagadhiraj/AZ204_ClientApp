@@ -4,6 +4,7 @@ import { AppointmentEntity, AppointmentQuery } from '../models/appointment';
 import { environment } from '../../environments/environment';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { Article } from '../models/article';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,15 @@ export class AppointmentService {
   constructor(private httpClient: HttpClient) { }
 
   appointments: Array<AppointmentEntity>;
+  app: Array<AppointmentEntity>;
 
   saveOrFetchAppointment(appointment: AppointmentQuery): Observable<AppointmentEntity[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<AppointmentEntity[]>(environment.apiUrl + 'appointment', appointment, { headers: headers }) // + 'CreateOrUpdate'
       .pipe(
+        tap(app => {
+          this.app = app;
+        }),
         catchError(this.handleError)
       );
   }

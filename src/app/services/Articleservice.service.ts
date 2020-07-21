@@ -24,9 +24,8 @@ export class ArticleService {
       tap(
         articles => {
           this.articles = articles;
-        },
+        }),
         catchError(this.handleError)
-      )
     );
   }
 
@@ -34,6 +33,7 @@ export class ArticleService {
     const url = `${environment.apiUrl + 'article'}/${id}`; //'Get'
     return this.httpClient.get<Article>(url)
       .pipe(
+        tap(()=> {}),
         catchError(this.handleError)
       );
   }
@@ -42,6 +42,7 @@ export class ArticleService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<Article>(environment.apiUrl + 'article', article, { headers: headers }) // + 'CreateOrUpdate'
       .pipe(
+        tap(()=> {}),
         catchError(this.handleError)
       );
   }

@@ -4,6 +4,7 @@ import { User } from '../../../../models/user';
 import { Router } from '@angular/router';
 import { UserService } from '../../../../services/Userservice.service';
 //import * as CryptoJS from 'crypto-js';
+import { AlertService } from '../../../../ui/_alert/alert.service';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,7 +14,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent implements OnInit {
-
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: true
+  };
   usernameErrorMessage: string;
   emailErrorMessage: string;
   dateOfBirthErrorMessage: string;
@@ -44,7 +48,9 @@ export class UserDetailsComponent implements OnInit {
   DayToDayActivities = new FormControl('');
   RecModifiedBy = new FormControl('');
 
-  constructor(private userDetailService: UserService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private userDetailService: UserService, private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private alertService: AlertService) {
     
   }
 
@@ -118,10 +124,10 @@ export class UserDetailsComponent implements OnInit {
       this.userDetailService.updateUser(userDetails)
         .subscribe(
           res => {
-            this.ErrorMessage = 'User Details updated';
+            this.alertService.success('User Details has been updated successfully', this.options);
             this.router.navigate(['admin/manageUsers/view']);
           }, err => {
-            this.ErrorMessage = err.error.message;
+            this.alertService.error('An error occured', this.options);
           }
         );
 

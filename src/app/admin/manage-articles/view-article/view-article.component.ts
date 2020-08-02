@@ -3,6 +3,7 @@ import { Article } from '../../../models/article';
 import { HttpClient } from '@angular/common/http';
 import { ArticleService } from '../../../services/Articleservice.service';
 import { Router } from '@angular/router';
+import { AlertService } from '../../../ui/_alert/alert.service';
 
 @Component({
   selector: 'app-view-article',
@@ -10,12 +11,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./view-article.component.css']
 })
 export class ViewArticleComponent implements OnInit {
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: true
+  };
   loader: boolean = false;
   public deleteArticle: Article = new Article();
   public isDisabled: boolean = false;
   public searchText: string;
   pageOfItems: Array<any>;
-  constructor(private articleService: ArticleService, private router: Router, ) {
+  constructor(private articleService: ArticleService, private router: Router, 
+    private alertService: AlertService ) {
     
   }
   
@@ -61,12 +67,13 @@ export class ViewArticleComponent implements OnInit {
     this.articleService.updateArticle(article)
       .subscribe(
         res => {
+          this.alertService.success('Article/Service has been deleted successfully', this.options);
           this.fetcharticles();
           this.isDisabled = false;
           this.deleteArticle = new Article();
         },
         err => {
-          console.log(err);
+          this.alertService.error('An error occured', this.options);
           this.isDisabled = false;
           this.deleteArticle = new Article();
         }

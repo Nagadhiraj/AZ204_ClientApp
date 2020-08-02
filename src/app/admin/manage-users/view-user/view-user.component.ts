@@ -3,6 +3,7 @@ import { User } from '../../../models/user';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../../services/Userservice.service';
 import { Router } from '@angular/router';
+import { AlertService } from '../../../ui/_alert/alert.service';
 
 @Component({
   selector: 'app-view-user',
@@ -10,12 +11,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./view-user.component.css']
 })
 export class ViewUserComponent implements OnInit {
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: true
+  };
   loader: boolean = false;
   public deleteUser: User = new User();
   public isDisabled: boolean = false;
   public searchText: string;
   pageOfItems: Array<any>;
-  constructor(private userService: UserService, private router: Router, ) {
+  constructor(private userService: UserService, private router: Router,
+    private alertService: AlertService ) {
     
   }
   
@@ -64,12 +70,13 @@ export class ViewUserComponent implements OnInit {
     this.userService.updateUser(user)
       .subscribe(
         res => {
+          this.alertService.success('User has been deleted successfully', this.options);
           this.fetchusers();
           this.isDisabled = false;
           this.deleteUser = new User();
         },
         err => {
-          console.log(err);
+          this.alertService.error('An error occured', this.options);
           this.isDisabled = false;
           this.deleteUser = new User();
         }

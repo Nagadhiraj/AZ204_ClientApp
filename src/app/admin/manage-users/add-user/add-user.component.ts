@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../../services/Userservice.service';
 import { User } from '../../../models/user';
 import { Router } from '@angular/router';
+import { AlertService } from '../../../ui/_alert/alert.service';
 
 @Component({
   selector: 'app-add-user',
@@ -10,7 +11,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: true
+  };
   public value: Date = new Date("01/01/2019");
 
   userNameErrorMessage: string;
@@ -35,7 +39,8 @@ export class AddUserComponent implements OnInit {
   contact = new FormControl('', [Validators.required]);
   gender = new FormControl('', [Validators.required]);
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     //console.log('add user component')
@@ -71,10 +76,10 @@ export class AddUserComponent implements OnInit {
       this.userService.saveUser(user)
         .subscribe(
           res => {
-            this.ErrorMessage = 'User has been added successfully';
+            this.alertService.success('User has been added successfully', this.options);
             this.router.navigate(['admin/manageUsers/view']);
           }, err => {
-            this.ErrorMessage = err.error.message;
+            this.alertService.error('An error occured', this.options);
           }
         );;
       //}

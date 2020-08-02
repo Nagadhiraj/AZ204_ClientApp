@@ -4,7 +4,8 @@ import { Article } from '../../../models/article';
 import { Router } from '@angular/router';
 import { ArticleService } from '../../../services/Articleservice.service';
 import { AppConstants } from '../../../Glossary';
-import 'quill-emoji/dist/quill-emoji.js'
+import 'quill-emoji/dist/quill-emoji.js';
+import { AlertService } from '../../../ui/_alert/alert.service';
 
 @Component({
   selector: 'app-add-article',
@@ -12,7 +13,10 @@ import 'quill-emoji/dist/quill-emoji.js'
   styleUrls: ['./add-article.component.css']
 })
 export class AddArticleComponent implements OnInit {
-
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: true
+  };
   modules = {};
   editorStyle = {};
   articleNameErrorMessage: String;
@@ -30,7 +34,8 @@ export class AddArticleComponent implements OnInit {
   articleContentText = AppConstants.ARTICLE_CONTENT_TEXT;
   saveArticleText = AppConstants.SAVE_ARTICLE_TEXT;
 
-  constructor(private articleservice: ArticleService, private router: Router) { 
+  constructor(private articleservice: ArticleService, private router: Router,
+    private alertService: AlertService ) { 
     this.modules = {
       'emoji-shortname': true,
       'emoji-textarea': true,
@@ -94,10 +99,10 @@ export class AddArticleComponent implements OnInit {
       this.articleservice.saveArticle(article)
           .subscribe(
             res => {
-              this.ErrorMessage = 'Article added';
+              this.alertService.success('Article/Service has been added successfully', this.options);
               this.router.navigate(['admin/manageArticles/view']);
             }, err => {
-              this.ErrorMessage = err.error.message;
+              this.alertService.error('An error occured', this.options);
             }
           );;
       

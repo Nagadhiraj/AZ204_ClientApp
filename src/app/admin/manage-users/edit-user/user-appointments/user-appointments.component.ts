@@ -5,6 +5,7 @@ import { UserService } from '../../../../services/Userservice.service';
 import {AppointmentService} from '../../../../services/Appointmentservice.service'
 import {AppointmentEntity, AppointmentQuery} from '../../../../models/appointment';
 import { Router } from '@angular/router';
+import { AlertService } from '../../../../ui/_alert/alert.service';
 
 
 @Component({
@@ -13,7 +14,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-appointments.component.css']
 })
 export class UserAppointmentsComponent implements OnInit {
-
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: true
+  };
   loader: boolean = false;
   searchloader:boolean=false;
   public unallocateAppointment: AppointmentEntity = new AppointmentEntity();
@@ -36,7 +40,8 @@ export class UserAppointmentsComponent implements OnInit {
 
   constructor(private userService: UserService, 
     private router: Router, 
-    private appointmentService : AppointmentService) {
+    private appointmentService : AppointmentService,
+    private alertService: AlertService) {
 
   }
 
@@ -116,11 +121,13 @@ export class UserAppointmentsComponent implements OnInit {
     this.appointmentService.updateAppointment(appointment)
       .subscribe(
         res => {
+          this.alertService.success('Appointment has been unallocated successfully', this.options);
           this.fetchAppointmentsForUser();
           this.isDisabled = false;
         },
         err => {
           console.log(err);
+          this.alertService.error('An error occured', this.options);
           this.isDisabled = false;
         }
       );
@@ -147,12 +154,14 @@ export class UserAppointmentsComponent implements OnInit {
     this.appointmentService.updateAppointment(appointment)
       .subscribe(
         res => {
+          this.alertService.success('Appointment has been allocated successfully', this.options);
           this.fetchAppointmentsForUser();
           this.isDisabled = false;
           this.addPanel = false;
         },
         err => {
           console.log(err);
+          this.alertService.error('An error occured', this.options);
           this.isDisabled = false;
         }
       );

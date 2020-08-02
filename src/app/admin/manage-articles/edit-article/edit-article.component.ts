@@ -5,6 +5,7 @@ import { ArticleService } from '../../../services/Articleservice.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from '../../../ui/_alert/alert.service';
 
 @Component({
   selector: 'app-edit-article',
@@ -12,11 +13,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-article.component.css']
 })
 export class EditArticleComponent implements OnInit {
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: true
+  };
   modules = {};
   editorStyle = {};
   isService: boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private articleService: ArticleService, private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute, private articleService: ArticleService, 
+    private router: Router,
+    private alertService: AlertService ) {
     this.modules = {
       'emoji-shortname': true,
       'emoji-textarea': true,
@@ -116,10 +123,10 @@ export class EditArticleComponent implements OnInit {
       this.articleService.updateArticle(article)
         .subscribe(
           res => {
-            this.ErrorMessage = 'Article Updated';
+            this.alertService.success('Article/Service has been updated successfully', this.options);
             this.router.navigate(['admin/manageArticles/view']);
           }, err => {
-            this.ErrorMessage = err.error.message;
+            this.alertService.error('An error occured', this.options);
           }
         );;
 

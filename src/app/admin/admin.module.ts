@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { routing } from './admin-routing.module';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { ManageArticlesComponent } from './manage-articles/manage-articles.component';
-import { ManageServiceComponent } from './manage-service/manage-service.component';
 import { ManageTestimonialsComponent } from './manage-testimonials/manage-testimonials.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -13,9 +12,6 @@ import { ManageMessagesComponent } from './manage-messages/manage-messages.compo
 import { AddArticleComponent } from './manage-articles/add-article/add-article.component';
 import { EditArticleComponent } from './manage-articles/edit-article/edit-article.component';
 import { ViewArticleComponent } from './manage-articles/view-article/view-article.component';
-import { AddServiceComponent } from './manage-service/add-service/add-service.component';
-import { EditServiceComponent } from './manage-service/edit-service/edit-service.component';
-import { ViewServiceComponent } from './manage-service/view-service/view-service.component';
 
 import { AddUserComponent } from './manage-users/add-user/add-user.component';
 import { EditUserComponent } from './manage-users/edit-user/edit-user.component';
@@ -28,16 +24,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminLayoutComponentComponent } from './admin-layout-component/admin-layout-component.component';
-import {AuthenticationModule} from '../authentication/authentication.module';
 import { QuillModule} from 'ngx-quill';
 import { FilterPipe } from '../ui/filter/filter.pipe';
 import { JwPaginationComponent } from 'jw-angular-pagination';
+import { FileUploadModule } from 'ng2-file-upload';
+import { AlertModule } from '../ui/_alert/alert.module';
 
 @NgModule({
   declarations: [
     AppointmentsComponent,
     ManageArticlesComponent,
-    ManageServiceComponent,
     ManageTestimonialsComponent,
     ManageUsersComponent,
     ProfileComponent,
@@ -46,9 +42,6 @@ import { JwPaginationComponent } from 'jw-angular-pagination';
     AddArticleComponent,
     EditArticleComponent,
     ViewArticleComponent,
-    AddServiceComponent,
-    EditServiceComponent,
-    ViewServiceComponent,
     AddUserComponent,
     EditUserComponent,
     ViewUserComponent,
@@ -67,15 +60,13 @@ import { JwPaginationComponent } from 'jw-angular-pagination';
     HttpClientModule,
     DatePickerModule,
     QuillModule,
-    AuthenticationModule
+    FileUploadModule,
+    AlertModule
   ],
   entryComponents: [
     AddArticleComponent,
     EditArticleComponent,
     ViewArticleComponent,
-    AddServiceComponent,
-    EditServiceComponent,
-    ViewServiceComponent,
     AddUserComponent,
     EditUserComponent,
     ViewUserComponent
